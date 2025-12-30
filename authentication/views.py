@@ -1,6 +1,7 @@
 from urllib import request
 from django.shortcuts import render,redirect
 from authentication.forms import RegisterForm,UserProfileForm,UpdateProfile
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout,login,authenticate
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from authentication.models import UserProfile
@@ -48,7 +49,7 @@ def LogoutFunc(request):
     return redirect("home_link")
 
 
-
+@login_required
 def ProfileFunc(request):
     try:
         profile = UserProfile.objects.get(user=request.user)
@@ -61,7 +62,7 @@ def ProfileFunc(request):
     
     return render(request, "auth/profile.html",context)
 
-
+@login_required
 def UpdateImageFunc(request):
 
       if request.method == "POST":
@@ -78,7 +79,7 @@ def UpdateImageFunc(request):
     }
       return render(request, "auth/update_image.html", context)
 
-
+@login_required
 def AddProfileFunc(request):
     form = UserProfileForm()
     if request.method == "POST":
@@ -94,7 +95,7 @@ def AddProfileFunc(request):
     
     return render(request, "auth/add_profile.html",context)
 
-
+@login_required
 def UpdateProfileFunc(request):
     if request.method == "POST":
         form = UpdateProfile(request.POST, instance=request.user)
