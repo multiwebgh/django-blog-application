@@ -47,6 +47,7 @@ def BlogDetailsFunc(request,slug):
 
     return render(request, "blog/blog_detail.html",context)
 
+@login_required
 def CreatePostFunc(request):
 
        if request.method == "POST":
@@ -91,6 +92,7 @@ def MyPostsFunc(request):
     }
     return render(request, "blog/my_posts.html", context)
 
+@login_required
 def like_blog(request, slug):
     blog = get_object_or_404(Blog, slug=slug)
     user = request.user
