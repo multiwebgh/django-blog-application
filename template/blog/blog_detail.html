@@ -14,9 +14,21 @@
 </p>
 
 <!-- LIKE BUTTON -->
- <form method="post" action="{% url 'like_blog' blog.slug %}">
-  {% csrf_token %}
+ 
+ {% if not user.is_authenticated %}
+   <div class="login-prompt">
+      <p>You must be logged in to like and comment this post. <a href="{% url 'login_link' %}" class="btn">Login Now</a></p>
+      <button 
+       class="btn btn-outline-danger mb-4">
+        <i class="bi bi-heart"></i> Like
+    </button>
+       
+      </div>
 
+      {% else %}
+       <form method="post" action="{% url 'like_blog' blog.slug %}">
+  {% csrf_token %}
+   
    {% if user in blog.like.all %}
      <button 
        class="btn btn-outline-danger mb-4">
@@ -30,6 +42,9 @@
    {% endif %}
     </button>
     </form>
+
+ {% endif %}
+  
 
     
 <!-- COMMENTS -->
@@ -53,8 +68,7 @@
    </form>
    {% else %}
      <div class="login-prompt" style="border: 1px solid #ccc; padding: 20px; text-align: center;">
-        <p>You must be logged in to post a comment.</p>
-        <a href="{% url 'login_link' %}" class="btn">Login Now</a>
+        
     </div>
 {% endif %}
   
