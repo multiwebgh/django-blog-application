@@ -129,3 +129,7 @@ MEDIA_ROOT = "media"
 STATICFILES_DIRS = [
     BASE_DIR / "mystaticfiles"
 ]
+
+# Login settings
+LOGIN_URL = 'login_link'  # Redirect to login page if not authenticated
+LOGIN_REDIRECT_URL = 'home_link'  # Redirect after successful login
