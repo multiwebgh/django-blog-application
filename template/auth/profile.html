@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load django_bootstrap5 %}
+
+{% block main_content %}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        {% if not profile or not profile.photo %}
+                            <img src="https://via.placeholder.com/150" class="rounded-circle mb-3" alt="Profile Image" width="150" height="150">
+                        {% else %}
+                            <img src="{{ profile.photo.url }}" class="rounded-circle mb-1" alt="User Image" width="150" height="150" style="object-fit: cover;">
+                        {% endif %}
+                         <p><a class="link-opacity-50-hover" href="{% url 'update_image_link' %}">Change Image</a></p>
+                    </div>
+
+                    <hr>
+
+                    <div class="profile-details">
+                        <div class="row mb-3">
+                            <div class="col-5">
+                                <strong>Name</strong>
+                            </div>
+                            <div class="col-7 text-end">
+                                <span>{{ profile.user.first_name }} {{ profile.user.last_name }}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-5">
+                                <strong>Email account</strong>
+                            </div>
+                            <div class="col-7 text-end">
+                                <span>{{ profile.user.email }}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <strong>Bio</strong>
+                                <p class="text-muted mt-2">{{ profile.bio|default:"No bio added yet." }}</p>
+                            </div>
+                        </div>
+
+                        <div class="d-grid">
+                            <a href="{% url 'profileUpdate_link' %}" class="btn btn-primary">Update Profile</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock main_content %}
+

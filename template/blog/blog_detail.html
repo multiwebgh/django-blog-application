@@ -1,0 +1,62 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main_content %}
+
+<!-- BLOG DETAILS -->
+<div class="container my-5">
+<h1>{{ blog.title }}</h1>
+<p class="text-muted">{{ blog.created_at }}</p>
+<img src="{{ blog.image.url }}" class="img-fluid rounded mb-4" alt="post">
+<p>
+{{ blog.content }}
+</p>
+
+<!-- LIKE BUTTON -->
+ <form method="post" action="{% url 'like_blog' blog.slug %}">
+  {% csrf_token %}
+
+   {% if user in blog.like.all %}
+     <button 
+       class="btn btn-outline-danger mb-4">
+        <i class="bi bi-heart"></i> Like
+    </button>
+
+    {% else %}
+      <button 
+         class="btn btn-danger mb-4">
+          <i class="bi bi-heart-fill"></i> Liked
+   {% endif %}
+    </button>
+    </form>
+
+    
+<!-- COMMENTS -->
+<div class="card">
+<div class="card-body">
+<h5>Comments</h5>
+
+{% for comment in comments %}
+<p><strong>{{ comment.user.username }}: </strong>{{ comment.comment }}</p>
+{% endfor %}
+
+<hr>
+{% if user.is_authenticated %}
+   <form method="POST">
+     {% csrf_token %}
+      <div class="mb-3">
+      <textarea class="form-control" name="comment" rows="3" placeholder="Write a comment..."></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary mb-3">Post Comment</button>
+      </div>
+   </form>
+   {% else %}
+     <div class="login-prompt" style="border: 1px solid #ccc; padding: 20px; text-align: center;">
+        <p>You must be logged in to post a comment.</p>
+        <a href="{% url 'login_link' %}" class="btn">Login Now</a>
+    </div>
+{% endif %}
+  
+
+{% endblock main_content %}

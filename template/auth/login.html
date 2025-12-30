@@ -1,0 +1,26 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% load django_bootstrap5 %}
+
+{% block main_content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+      <div class="card shadow-sm">
+        <div class="card-body p-4">
+          <h2 class="card-title text-center mb-4">Login</h2>
+          <form method="post">
+            {% csrf_token %}
+            {% bootstrap_field form.username show_label=False %}
+            {% bootstrap_field form.password show_label=False %}
+            <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
+            <p class="text-center text-muted mb-0">Don't have an account? <a href="{% url 'user_link' %}">Register here</a></p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock main_content %}
+

@@ -1,0 +1,9 @@
+/* Site-wide styles */
+
+/* Placeholder visibility inside auth forms */
+.auth-container ::placeholder { color: #6c757d; opacity: 1; }
+.auth-container :-ms-input-placeholder { color: #6c757d; }
+.auth-container ::-ms-input-placeholder { color: #6c757d; }
+
+/* Basic spacing for blog list */
+.post-thumb { width:100%; height:auto; object-fit:cover; }

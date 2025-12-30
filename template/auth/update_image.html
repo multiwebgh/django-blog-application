@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load django_bootstrap5 %}
+
+{% block main_content %}
+
+<div class="container py-4" style="max-width:600px;">
+  <h2 class="mb-3">Update Profile Image</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <button type="submit" class="btn btn-primary">Update Image</button>
+  </form>
+  </div>
+
+{% endblock main_content %}
